@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MobileServiceMobileApp.MoviePage">
+
+    <ContentPage.Content>
+        <StackLayout>
+            <StackLayout Orientation="Horizontal" Padding="10">
+                <Button Text="Home" Clicked="Home_Clicked"/>
+                <Button Text="Login" Clicked="Login_Clicked"/>
+                <Button Text="Register" Clicked="Register_Clicked"/>
+            </StackLayout>
+            
+            <Label x:Name="TitleLabel" Text="{Binding title}" HorizontalTextAlignment="Center" FontSize="Title" Padding="30,30,30,10"/>
+
+            <Grid x:Name="MovieGrid" Margin="15">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Column="0" Grid.Row="0" Text ="Director"></Label>
+                <Label Grid.Column="0" Grid.Row="1" Text ="Actors"></Label>
+                <Label Grid.Column="0" Grid.Row="2" Text ="Date of production"></Label>
+                <Label Grid.Column="0" Grid.Row="3" Text ="Rating"></Label>
+                <Label Grid.Column="0" Grid.Row="4" Text ="Description"></Label>
+
+                <Label Grid.Column="1" Grid.Row="0" Text ="{Binding director}"></Label>
+                <Label Grid.Column="1" Grid.Row="1" Text ="{Binding actors}"></Label>
+                <Label Grid.Column="1" Grid.Row="2" Text ="{Binding releaseDate}"></Label>
+                <Label Grid.Column="1" Grid.Row="3" Text ="{Binding rating}"></Label>
+                <Label Grid.Column="1" Grid.Row="4" Text ="{Binding description}"></Label>
+            </Grid>
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

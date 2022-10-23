@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MobileServiceMobileApp.LoginPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <StackLayout Orientation="Horizontal" Padding="10">
+                <Button Text="Home" Clicked="Home_Clicked"/>
+                <Button Text="Register" Clicked="Register_Clicked"/>
+            </StackLayout>
+            
+            <Label Text="Welcome to MovieService!" Padding="15" FontSize="Title"
+                HorizontalOptions="CenterAndExpand" />
+
+            <StackLayout Orientation="Vertical" Spacing="10" Padding="15">
+                <Entry x:Name="Email" Text="{Binding Email}" Placeholder="Email"   
+                           HeightRequest="40" />
+                <Entry x:Name="Password" Text="{Binding Password}" Placeholder="Password"   
+                           HeightRequest="40"   
+                           IsPassword="True"  />
+                <Button Clicked="Login_Clicked" Text="Login" TextColor="White"  
+                    FontAttributes="Bold" FontSize="Large" HorizontalOptions="FillAndExpand"  
+                    BackgroundColor="#088da5" />
+            </StackLayout>
+            <Label x:Name="ErrorLabel" TextColor="Red" Text ="" HorizontalTextAlignment="Center"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
