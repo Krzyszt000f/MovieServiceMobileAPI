@@ -37,7 +37,7 @@ namespace MobileServiceMobileApp {
 
                 var result = Register(user);
 
-                if (result.StatusCode == "200") {
+                if (result.StatusCode == "201") {
                     SetError("User created - you can log in now", false);
                 } else {
                     SetError(result.Message);

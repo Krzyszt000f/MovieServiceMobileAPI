@@ -16,7 +16,8 @@ namespace MovieService.Controllers
         {
             //var id = User.FindFirstValue("user id");
             List<MovieModel> show_movies = new List<MovieModel>();
-            NpgsqlConnection conn = new NpgsqlConnection("User ID=postgres;Password=123;Host=localhost;Port=5432;Database=movieservice;");
+            NpgsqlConnection conn = new NpgsqlConnection("User ID=postgres;Password=mysecretpassword;Host=localhost;Port=5432;Database=movieservice;");
+            //NpgsqlConnection conn = new NpgsqlConnection("User ID=postgres;Password=123;Host=localhost;Port=5432;Database=movieservicemobile;");
             //NpgsqlConnection conn = new NpgsqlConnection("User ID=krzysztof_golusinski@moneyplus-server;Password=Am22Kg23;Host=moneyplus-server.postgres.database.azure.com;Port=5432;Database=moneyplus_db;");
             conn.Open();
             NpgsqlCommand cmd = new NpgsqlCommand();
@@ -32,8 +33,10 @@ namespace MovieService.Controllers
                 while(reader.Read())
                 {
                     MovieModel movie = new MovieModel();
+                    movie.guid = reader["movie_guid"].ToString();
                     movie.title = reader["title"].ToString();
                     movie.director = reader["director"].ToString();
+                    movie.rating = reader["rating"].ToString();
                     movie.yearOfProduction = Convert.ToDateTime(reader["date_of_production"]).Year.ToString();
                     show_movies.Add(movie);
                 }

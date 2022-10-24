@@ -26,8 +26,9 @@ namespace MovieService
         {
             UserModel user = new UserModel();
 
+            NpgsqlConnection conn = new NpgsqlConnection("User ID=postgres;Password=mysecretpassword;Host=localhost;Port=5432;Database=movieservice;");
             //NpgsqlConnection conn = new NpgsqlConnection("User ID=postgres;Password=123;Host=localhost;Port=5432;Database=moneyplusAlpha;");
-            NpgsqlConnection conn = new NpgsqlConnection("User ID=krzysztof_golusinski@moneyplus-server;Password=Am22Kg23;Host=moneyplus-server.postgres.database.azure.com;Port=5432;Database=moneyplus_db;");
+            //NpgsqlConnection conn = new NpgsqlConnection("User ID=krzysztof_golusinski@moneyplus-server;Password=Am22Kg23;Host=moneyplus-server.postgres.database.azure.com;Port=5432;Database=moneyplus_db;");
             conn.Open();
             NpgsqlCommand cmd = new NpgsqlCommand();
             cmd.Connection = conn;
@@ -69,16 +70,17 @@ namespace MovieService
             //CreatePasswordHash(request.password, out byte[] passwordHash, out byte[] passwordSalt);
 
             user.userName = request.userName;
-            user.userPassword = request.userPassword;
+            user.userPassword = request.password;
             user.email = request.email;
 
+            NpgsqlConnection conn = new NpgsqlConnection("User ID=postgres;Password=mysecretpassword;Host=localhost;Port=5432;Database=movieservicemobile;");
             //NpgsqlConnection conn = new NpgsqlConnection("User ID=postgres;Password=123;Host=localhost;Port=5432;Database=moneyplusAlpha;");
-            NpgsqlConnection conn = new NpgsqlConnection("User ID=krzysztof_golusinski@moneyplus-server;Password=Am22Kg23;Host=moneyplus-server.postgres.database.azure.com;Port=5432;Database=moneyplus_db;");
+            //NpgsqlConnection conn = new NpgsqlConnection("User ID=krzysztof_golusinski@moneyplus-server;Password=Am22Kg23;Host=moneyplus-server.postgres.database.azure.com;Port=5432;Database=moneyplus_db;");
             conn.Open();
             NpgsqlCommand cmd = new NpgsqlCommand();
             cmd.Connection = conn;
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "INSERT INTO users(user_guid, user_name, user_password, email, user_role) VALUES ('" + Guid.NewGuid().ToString() + "', '" + user.userName + "', '" + user.userPassword + "', " + user.email + "', 'Normal')";
+            cmd.CommandText = "INSERT INTO users(user_guid, user_name, user_password, email, user_role) VALUES ('" + Guid.NewGuid().ToString() + "', '" + user.userName + "', '" + user.userPassword + "', '" + user.email + "', 'Normal')";
             try
             {
                 NpgsqlDataReader reader = cmd.ExecuteReader();
