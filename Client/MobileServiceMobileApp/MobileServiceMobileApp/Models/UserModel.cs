@@ -9,8 +9,11 @@ namespace MovieService.Models
         [Key]
         public string userGuid { get; set; }
         public string userName { get; set; }
+        public string userPassword { get; set; }
         [JsonIgnore]
-        public string password { get; set; }
+        public byte[] passwordHash { get; set; }
+        [JsonIgnore]
+        public byte[] passwordSalt { get; set; }
         public string email { get; set; }
         [JsonIgnore]
         public string userRole { get; set; }

@@ -10,6 +10,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Mail;
+using System.Security.Cryptography;
 
 namespace MobileServiceMobileApp {
     [XamlCompilation(XamlCompilationOptions.Compile)]
@@ -30,12 +31,12 @@ namespace MobileServiceMobileApp {
             } else if (!ValidatePassword(Password.Text)) {
                 SetError("Password must contain at least 8 characters, one digit and one letter");
             } else {
-                UserModel user = new UserModel();
-                user.userName = Username.Text;
-                user.email = Email.Text;
-                user.password = Password.Text;
+                RegisterDataTransferObject userDataTransfer = new RegisterDataTransferObject();
+                userDataTransfer.userName = Username.Text;
+                userDataTransfer.email = Email.Text;
+                userDataTransfer.userPassword = Password.Text;
 
-                var result = Register(user);
+                var result = Register(userDataTransfer);
 
                 if (result.StatusCode == "201") {
                     SetError("User created - you can log in now", false);
@@ -69,7 +70,7 @@ namespace MobileServiceMobileApp {
         }
 
         [HttpPost]
-        public ResponseMessageStatus Register(UserModel user) {
+        public ResponseMessageStatus Register(RegisterDataTransferObject user) {
             HttpClientHandler clientHandler = new HttpClientHandler();
             clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
             using (var client = new HttpClient(clientHandler)) {

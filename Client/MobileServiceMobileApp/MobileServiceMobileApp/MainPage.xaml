@@ -1,13 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage  xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              x:Class="MobileServiceMobileApp.MainPage">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <xct:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
 
     <StackLayout>
         <StackLayout Orientation="Horizontal" Padding="10">
             <Button Text="Home" Clicked="Home_Clicked"/>
-            <Button Text="Login" Clicked="Login_Clicked"/>
-            <Button Text="Register" Clicked="Register_Clicked"/>
+            <Button x:Name="LoginButton" Text="Login" Clicked="Login_Clicked" IsVisible="{Binding LoginRegisterVisible, Converter={StaticResource InvertedBoolConverter}}"/>
+            <Button x:Name="RegisterButton" Text="Register" Clicked="Register_Clicked" IsVisible="{Binding LoginRegisterVisible, Converter={StaticResource InvertedBoolConverter}}"/>
+            <Button x:Name="LogoutButton" Text="Log out" Clicked="Logout_Clicked" IsVisible="{Binding LogoutVisible, Converter={StaticResource InvertedBoolConverter}}"/>
         </StackLayout>
         <Label Text="Welcome to MovieService!" HorizontalTextAlignment="Center" FontSize="Title" Padding="30,30,30,10"/>
         

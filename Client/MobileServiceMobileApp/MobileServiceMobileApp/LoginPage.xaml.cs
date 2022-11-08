@@ -10,11 +10,13 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Mail;
+using System.Security.Cryptography;
 
 namespace MobileServiceMobileApp {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class LoginPage : ContentPage {
         readonly string Url = "https://192.168.1.13:7277";
+        UserModel user;
 
         public LoginPage() {
             InitializeComponent();
@@ -22,18 +24,23 @@ namespace MobileServiceMobileApp {
 
         void Login_Clicked(object sender, System.EventArgs e) {
             if (Email.Text.Equals("") || Password.Text.Equals("")) {
-                SetError("Information missing");
+                SetError("Email or password missing");
             } else if (!ValidateEmail(Email.Text)) {
                 SetError("Inproper email address format");
             } else {
-                UserModel user = new UserModel();
-                user.email = Email.Text;
-                user.password = Password.Text;
+                UserDataTransferObject userDataTransfer = new UserDataTransferObject();
+                //CreatePasswordHash(Password.Text, out byte[] passwordHash, out byte[] passwordSalt);
 
-                var result = Login(user);
+                userDataTransfer.email = Email.Text;
+                userDataTransfer.password = Password.Text;
+                //user.passwordHash = passwordHash;
+                //user.passwordSalt = passwordSalt;
+
+                var result = Login(userDataTransfer);
 
                 if (result.accessToken != null && result.refreshToken != null) {
                     SetError("Logged in successfully", false);
+                    user = new UserModel();
                     user.refreshToken = result.refreshToken;
                 } else {
                     SetError(result.Message);
@@ -57,14 +64,14 @@ namespace MobileServiceMobileApp {
         }
 
         [HttpPost]
-        public ResponseMessageStatus Login(UserModel user) {
+        public ResponseMessageStatus Login(UserDataTransferObject userDataTransfer) {
             HttpClientHandler clientHandler = new HttpClientHandler();
             clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
             using (var client = new HttpClient(clientHandler)) {
                 var baseUri = Url;
                 var uri = new Uri(baseUri + "/api/login/");
 
-                var stringPayload = JsonConvert.SerializeObject(user);
+                var stringPayload = JsonConvert.SerializeObject(userDataTransfer);
                 var httpContent = new StringContent(stringPayload, Encoding.UTF8, "application/json");
 
                 var response = client.PostAsync(uri, httpContent);
@@ -75,7 +82,7 @@ namespace MobileServiceMobileApp {
         }
 
         void Home_Clicked(object sender, System.EventArgs e) {
-            App.Current.MainPage = new MainPage();
+            App.Current.MainPage = new MainPage(user);
         }
 
         void Register_Clicked(object sender, System.EventArgs e) {

@@ -13,21 +13,36 @@ using Newtonsoft.Json;
 using System.Diagnostics;
 using System.IO;
 using System.Net;
+using System.Globalization;
+using Xamarin.CommunityToolkit;
 
 namespace MobileServiceMobileApp {
     public partial class MainPage : ContentPage {
         string url = "https://192.168.1.13:7277";
         public List<MovieModel> Movies;
+        private UserModel user;
+        public UserModel User {
+            get {
+                return user;
+            }
+            set {
+                user = value;
+                LoginButton.IsVisible = user == null;
+                RegisterButton.IsVisible = user == null;
+                LogoutButton.IsVisible = user != null;
+            }
+        }
 
-        public MainPage() {         
+        public MainPage(UserModel _user = null) {          
             InitializeComponent();
+            User = _user;
 
             Movies = GetMovies();
             MoviesListView.ItemsSource = Movies;
         }
 
         void Home_Clicked(object sender, System.EventArgs e) {
-            App.Current.MainPage = new MainPage();
+            App.Current.MainPage = new MainPage(user);
         }
 
         void Login_Clicked(object sender, System.EventArgs e) {
@@ -36,6 +51,10 @@ namespace MobileServiceMobileApp {
 
         void Register_Clicked(object sender, System.EventArgs e) {
             App.Current.MainPage = new RegisterPage();
+        }
+
+        void Logout_Clicked(object sender, System.EventArgs e) {
+            App.Current.MainPage = new MainPage();
         }
 
         void OnTapMovie(object sender, System.EventArgs e) {
@@ -76,7 +95,7 @@ namespace MobileServiceMobileApp {
                 return movies;
             }
         }
-        
+
     }
 
 }
