@@ -1,0 +1,52 @@
+﻿@model MovieModel
+@{
+    ViewData["Title"] = Html.DisplayFor(modelItem => Model.title);
+}
+
+<div class="text-center">
+    <h1 class="display-4">@Html.DisplayFor(modelItem => Model.title)</h1>
+
+    <table class="table">
+        <tr>
+            <td>
+                Director</a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.director)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Actors</a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.actors)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Date of production</a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.releaseDate)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Rating</a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.rating)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Description</a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.description)
+            </td>
+        </tr>
+
+    </table>
+</div>
