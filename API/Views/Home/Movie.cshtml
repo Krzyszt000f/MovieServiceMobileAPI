@@ -1,0 +1,66 @@
+﻿@model MovieModel
+@{
+    ViewData["Title"] = Html.DisplayFor(modelItem => Model.title);
+    ViewData["Movie"] = "Movie";
+}
+
+<div class="text-center">
+    <h1 class="display-4">@Html.DisplayFor(modelItem => Model.title)</h1>
+</div>
+<table class="table table-striped">
+    <tbody>
+        <tr>
+            <th scope="row">Director</th>
+            <td>
+                @Html.DisplayFor(modelItem => Model.director)
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">Actors</th>
+            <td>
+                @Html.DisplayFor(modelItem => Model.actors)
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">Date of production</th>
+            <td>
+                @Html.DisplayFor(modelItem => Model.releaseDate)
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">Description</th>
+            <td>
+                @Html.DisplayFor(modelItem => Model.description)
+            </td>
+        </tr>
+    </tbody>
+</table></br>
+
+<table class="table">
+    @foreach (var item in Model.UsersComments) {
+        <tr>
+            <td width="20%">
+                @Html.DisplayFor(modelItem => item.creationDate)
+            </td>
+            <td width="20%">
+                @Html.DisplayFor(modelItem => item.userName)
+            </td>
+            <td width="60%">
+                @Html.DisplayFor(modelItem => item.commentContent)
+            </td>
+        </tr>
+    }
+</table></br>
+@if (ViewBag.ShowLoginRegister ?? true) {
+<p>Log in to add a comment</p>
+} else {
+    <div class="container">
+        <form>
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Add a comment..." name="comment" required>
+                <input type="text" class="form-control" value=@Html.Name(Model.guid) name="guid" hidden>
+            </div><br />
+            <button type="submit" onclick="Submit" asp-controller="Movie" asp-action="Submit" )>Add comment</button>
+        </form>
+    </div>
+}

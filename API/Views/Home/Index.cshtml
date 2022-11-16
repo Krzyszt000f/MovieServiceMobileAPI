@@ -1,0 +1,18 @@
+﻿@model IEnumerable<MovieModel>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+</div>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            <a class="nav-link display-6 text-dark" asp-area="" asp-controller="Home" asp-action="Movie" asp-route-guid=@Html.Name(item.guid)>@Html.DisplayFor(modelItem => item.title)</a>
+        </td>
+    </tr>
+}
+
+

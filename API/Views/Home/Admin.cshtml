@@ -1,0 +1,104 @@
+﻿@model IEnumerable<MovieModel>
+@{
+    ViewData["Title"] = "Admin Panel";
+    ViewData["Admin"] = "Admin";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Admin panel</h1>
+</div>
+
+<h2 class="display-6">Add a new movie</h2>
+<dialog id="addDialog">
+    <form>
+        <div class="container">
+            <p>
+                <div class="form-group">
+                    <label for="title"><b>Title</b></label>
+                    <input type="text" class="form-control" name="title" required>
+                </div>
+                <div class="form-group">
+                    <label for="releaseDate"><b>Release date</b></label>
+                    <input type="text" class="form-control" name="releaseDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="director"><b>Director</b></label>
+                    <input type="text" class="form-control" name="director" required>
+                </div>
+                <div class="form-group">
+                    <label for="actors"><b>Actors</b></label>
+                    <input type="text" class="form-control" name="actors" required>
+                </div>
+                <div class="form-group">
+                    <label for="description"><b>Description</b></label>
+                    <textarea type="text" class="form-control" name="description" required></textarea>
+                </div>
+            </p>
+            <button type="submit" onclick="Add" asp-controller="Admin" asp-action="Add">Add</button>
+            <button type="button" id="cancel">Cancel</button>
+        </div>
+    </form>
+</dialog>
+<p>
+    <button id="addMovie">Add</button>
+</p>
+<output></output>
+
+<h2 class="display-6">Edit movies</h2>
+<div class="form-container">
+    @foreach (var item in Model) {
+        <form>
+            <div>
+                <div class="col-xs-6 form-group">
+                    <div class="form-group">
+                        <label for="title"><b>Title</b></label>
+                        <input type="text" class="form-control" value="@Html.ValueFor(modelItem => item.title)" name="title" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="releaseDate"><b>Release date</b></label>
+                        <input type="text" class="form-control" value="@Html.ValueFor(modelItem => item.releaseDate)" name="releaseDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="director"><b>Director</b></label>
+                        <input type="text" class="form-control" value="@Html.ValueFor(modelItem => item.director)" name="director" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="actors"><b>Actors</b></label>
+                        <input type="text" class="form-control" value="@Html.ValueFor(modelItem => item.actors)" name="actors" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="description"><b>Description</b></label>
+                        <textarea type="text" class="form-control" name="description" required>@Html.ValueFor(modelItem => item.description)</textarea>
+                    </div>
+                    <input type="text" class="form-control" value=@Html.Name(item.guid) name="guid" hidden>
+                </div>
+                <div class="col-xs-6 form-group">
+                    <button type="submit" onclick="Edit" asp-controller="Admin" asp-action="Edit">Save</button>
+                    <button type="submit" onclick="Delete" asp-controller="Admin" asp-action="Delete">Delete</button>
+                </div>
+            </div><br>
+        </form>
+    }
+</div>
+
+<script>
+    const addButton = document.getElementById('addMovie');
+    const cancelButton = document.getElementById("cancel");
+    const addDialog = document.getElementById('addDialog');
+    const outputBoxAdd = document.querySelector('output');
+
+    if (typeof addDialog.showModal !== 'function') {
+        addDialog.hidden = true;
+    }
+    addButton.addEventListener('click', () => {
+        if (typeof addDialog.showModal === "function") {
+            addDialog.showModal();
+        } else {
+            outputBoxAdd.value = "Sorry, the <dialog> API is not supported by this browser.";
+        }
+    });
+
+    cancelButton.addEventListener("click", () => {
+        addDialog.close();
+    });
+</script>

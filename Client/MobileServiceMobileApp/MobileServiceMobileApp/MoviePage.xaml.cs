@@ -22,6 +22,10 @@ namespace MobileServiceMobileApp {
                 user = value;
                 NewCommentStackPanel.IsVisible = user != null;
                 NewCommentLabel.IsVisible = user == null;
+                LoginButton.IsVisible = user == null;
+                RegisterButton.IsVisible = user == null;
+                LogoutButton.IsVisible = user != null;
+                AdminButton.IsVisible = user != null && user.userRole.Equals("Admin");
             }
         }
         public MovieModel Movie;
@@ -70,6 +74,14 @@ namespace MobileServiceMobileApp {
 
         void Register_Clicked(object sender, EventArgs e) {
             App.Current.MainPage = new RegisterPage();
+        }
+
+        void Logout_Clicked(object sender, EventArgs e) {
+            App.Current.MainPage = new MainPage();
+        }
+
+        void Admin_Clicked(object sender, EventArgs e) {
+            App.Current.MainPage = new AdminPage();
         }
 
         [HttpPost]
