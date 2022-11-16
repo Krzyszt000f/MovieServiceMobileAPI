@@ -20,6 +20,8 @@ namespace MovieService.Models
         [JsonIgnore]
         public string refreshToken { get; set; }
         [JsonIgnore]
+        public string accessToken { get; set; }
+        [JsonIgnore]
         public DateTime tokenExpires { get; set; }
     }
 }

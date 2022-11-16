@@ -7,38 +7,76 @@
         <StackLayout>
             <StackLayout Orientation="Horizontal" Padding="10">
                 <Button Text="Home" Clicked="Home_Clicked"/>
-                <Button Text="Login" Clicked="Login_Clicked"/>
-                <Button Text="Register" Clicked="Register_Clicked"/>
+                <Button x:Name="LoginButton" Text="Login" Clicked="Login_Clicked" IsVisible="{Binding LoginRegisterVisible, Converter={StaticResource InvertedBoolConverter}}"/>
+                <Button x:Name="RegisterButton" Text="Register" Clicked="Register_Clicked" IsVisible="{Binding LoginRegisterVisible, Converter={StaticResource InvertedBoolConverter}}"/>
+                <Button x:Name="LogoutButton" Text="Log out" Clicked="Logout_Clicked" IsVisible="{Binding LogoutVisible, Converter={StaticResource InvertedBoolConverter}}"/>
+                <Button x:Name="AdminButton" Text="Admin panel" Clicked="Admin_Clicked" IsVisible="{Binding AdminVisible, Converter={StaticResource InvertedBoolConverter}}"/>
             </StackLayout>
-            
+
             <Label x:Name="TitleLabel" Text="{Binding title}" HorizontalTextAlignment="Center" FontSize="Title" Padding="30,30,30,10"/>
+            <ScrollView>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid x:Name="MovieGrid" Grid.Row="0" Margin="15">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="1*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
 
-            <Grid x:Name="MovieGrid" Margin="15">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="1*" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
+                        <Label Grid.Column="0" Grid.Row="0" Text ="Director"></Label>
+                        <Label Grid.Column="0" Grid.Row="1" Text ="Actors"></Label>
+                        <Label Grid.Column="0" Grid.Row="2" Text ="Date of production"></Label>
+                        <Label Grid.Column="0" Grid.Row="3" Text ="Rating"></Label>
+                        <Label Grid.Column="0" Grid.Row="4" Text ="Description"></Label>
 
-                <Label Grid.Column="0" Grid.Row="0" Text ="Director"></Label>
-                <Label Grid.Column="0" Grid.Row="1" Text ="Actors"></Label>
-                <Label Grid.Column="0" Grid.Row="2" Text ="Date of production"></Label>
-                <Label Grid.Column="0" Grid.Row="3" Text ="Rating"></Label>
-                <Label Grid.Column="0" Grid.Row="4" Text ="Description"></Label>
+                        <Label Grid.Column="1" Grid.Row="0" Text ="{Binding director}"></Label>
+                        <Label Grid.Column="1" Grid.Row="1" Text ="{Binding actors}"></Label>
+                        <Label Grid.Column="1" Grid.Row="2" Text ="{Binding releaseDate}"></Label>
+                        <Label Grid.Column="1" Grid.Row="3" Text ="{Binding rating}"></Label>
+                        <Label Grid.Column="1" Grid.Row="4" Text ="{Binding description}"></Label>
+                    </Grid>
 
-                <Label Grid.Column="1" Grid.Row="0" Text ="{Binding director}"></Label>
-                <Label Grid.Column="1" Grid.Row="1" Text ="{Binding actors}"></Label>
-                <Label Grid.Column="1" Grid.Row="2" Text ="{Binding releaseDate}"></Label>
-                <Label Grid.Column="1" Grid.Row="3" Text ="{Binding rating}"></Label>
-                <Label Grid.Column="1" Grid.Row="4" Text ="{Binding description}"></Label>
-            </Grid>
+                    <Label x:Name="NewCommentLabel" Text="Log in to add a comment" Grid.Row="1" HorizontalTextAlignment="Center" Margin="15"></Label>
+                    <StackLayout x:Name="NewCommentStackPanel" Grid.Row="1" Orientation="Vertical" Spacing="10" Padding="15">
+                        <Entry x:Name="NewCommentContent" Text="{Binding NewCommentContent}" Placeholder="Your new comment..."   
+                           HeightRequest="40"/>
+                        <Button Clicked="NewComment_Clicked" Text="Add comment" TextColor="White"  
+                    FontAttributes="Bold" FontSize="Large" HorizontalOptions="Fill"  
+                    BackgroundColor="#088da5" />
+                    </StackLayout>
 
+                    <ListView x:Name="CommentsListView" ItemsSource="{Binding Comments}" Grid.Row="2" Margin="15,0,15,0">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Grid x:Name="CommentsGrid" Margin="15,0,15,0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="1*" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <Label Grid.Column="0" Text ="{Binding creationDate}"></Label>
+                                        <Label Grid.Column="1" Text ="{Binding userName}"></Label>
+                                        <Label Grid.Column="2" Text ="{Binding commentContent}"></Label>
+                                    </Grid>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Grid>
+            </ScrollView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

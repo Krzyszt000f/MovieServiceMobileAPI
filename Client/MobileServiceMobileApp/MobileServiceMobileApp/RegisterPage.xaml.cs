@@ -15,13 +15,12 @@ using System.Security.Cryptography;
 namespace MobileServiceMobileApp {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class RegisterPage : ContentPage {
-        readonly string Url = "https://192.168.1.13:7277";
 
         public RegisterPage() {
             InitializeComponent();
         }
 
-        void Register_Clicked(object sender, System.EventArgs e) {
+        void Register_Clicked(object sender, EventArgs e) {
             if (Username.Text.Equals("") || Email.Text.Equals("") || Password.Text.Equals("") || RepeatPassword.Text.Equals("")) {
                 SetError("Information missing");
             } else if (!ValidateEmail(Email.Text)) {
@@ -74,7 +73,7 @@ namespace MobileServiceMobileApp {
             HttpClientHandler clientHandler = new HttpClientHandler();
             clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
             using (var client = new HttpClient(clientHandler)) {
-                var baseUri = Url;
+                var baseUri = Consts.URL;
                 var uri = new Uri(baseUri + "/api/register/");
 
                 var stringPayload = JsonConvert.SerializeObject(user);
@@ -87,11 +86,11 @@ namespace MobileServiceMobileApp {
             }
         }
 
-        void Home_Clicked(object sender, System.EventArgs e) {
+        void Home_Clicked(object sender, EventArgs e) {
             App.Current.MainPage = new MainPage();
         }
 
-        void Login_Clicked(object sender, System.EventArgs e) {
+        void Login_Clicked(object sender, EventArgs e) {
             App.Current.MainPage = new LoginPage();
         }
     }

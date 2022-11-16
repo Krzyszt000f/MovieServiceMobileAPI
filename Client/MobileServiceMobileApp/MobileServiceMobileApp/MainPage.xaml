@@ -16,44 +16,22 @@
             <Button x:Name="LoginButton" Text="Login" Clicked="Login_Clicked" IsVisible="{Binding LoginRegisterVisible, Converter={StaticResource InvertedBoolConverter}}"/>
             <Button x:Name="RegisterButton" Text="Register" Clicked="Register_Clicked" IsVisible="{Binding LoginRegisterVisible, Converter={StaticResource InvertedBoolConverter}}"/>
             <Button x:Name="LogoutButton" Text="Log out" Clicked="Logout_Clicked" IsVisible="{Binding LogoutVisible, Converter={StaticResource InvertedBoolConverter}}"/>
+            <Button x:Name="AdminButton" Text="Admin panel" Clicked="Admin_Clicked" IsVisible="{Binding AdminVisible, Converter={StaticResource InvertedBoolConverter}}"/>
         </StackLayout>
         <Label Text="Welcome to MovieService!" HorizontalTextAlignment="Center" FontSize="Title" Padding="30,30,30,10"/>
-        
-        <ListView x:Name="MoviesListView" ItemsSource="{Binding Movies}" Margin="15">
-            <ListView.Header>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="0" />
-                        <ColumnDefinition Width="1*" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-                    <Label Text="Title" HorizontalOptions="Fill"  Grid.Column="1" FontSize="Medium" FontAttributes="Bold" HorizontalTextAlignment="Center" Margin="1"/>
-                    <Label Text="Rating" HorizontalOptions="Fill" Grid.Column="2" FontSize="Medium" FontAttributes="Bold" HorizontalTextAlignment="Center" Margin="1"/>
-                </Grid>
-            </ListView.Header>
 
+        <ListView x:Name="MoviesListView" ItemsSource="{Binding Movies}" Margin="15">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <Grid >
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="0" />
-                                <ColumnDefinition Width="1*" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-                            <Label Grid.Column="0" Text ="{Binding guid}"></Label>
-                            <Label Grid.Column="1" Text ="{Binding title}" HorizontalOptions="Fill"  HorizontalTextAlignment="Center" Margin="1">
-                                <Label.GestureRecognizers>
-                                    <TapGestureRecognizer Tapped="OnTapMovie" NumberOfTapsRequired="1" />
-                                </Label.GestureRecognizers>
-                            </Label>
-                            <Label Grid.Column="2" Text ="{Binding rating}" HorizontalOptions="Fill"  HorizontalTextAlignment="Center" Margin="1"></Label>
-                        </Grid>
+                        <Label Text ="{Binding title}" HorizontalOptions="Fill"  HorizontalTextAlignment="Center" Margin="1">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnTapMovie" NumberOfTapsRequired="1" />
+                            </Label.GestureRecognizers>
+                        </Label>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        
     </StackLayout>
-
 </ContentPage>

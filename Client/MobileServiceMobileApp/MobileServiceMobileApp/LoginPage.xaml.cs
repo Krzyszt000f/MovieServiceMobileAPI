@@ -15,14 +15,13 @@ using System.Security.Cryptography;
 namespace MobileServiceMobileApp {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class LoginPage : ContentPage {
-        readonly string Url = "https://192.168.1.13:7277";
         UserModel user;
 
         public LoginPage() {
             InitializeComponent();
         }
 
-        void Login_Clicked(object sender, System.EventArgs e) {
+        void Login_Clicked(object sender, EventArgs e) {
             if (Email.Text.Equals("") || Password.Text.Equals("")) {
                 SetError("Email or password missing");
             } else if (!ValidateEmail(Email.Text)) {
@@ -42,6 +41,8 @@ namespace MobileServiceMobileApp {
                     SetError("Logged in successfully", false);
                     user = new UserModel();
                     user.refreshToken = result.refreshToken;
+                    user.accessToken = result.accessToken;
+                    user.userRole = result.role;
                 } else {
                     SetError(result.Message);
                 }
@@ -68,7 +69,7 @@ namespace MobileServiceMobileApp {
             HttpClientHandler clientHandler = new HttpClientHandler();
             clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
             using (var client = new HttpClient(clientHandler)) {
-                var baseUri = Url;
+                var baseUri = Consts.URL;
                 var uri = new Uri(baseUri + "/api/login/");
 
                 var stringPayload = JsonConvert.SerializeObject(userDataTransfer);
@@ -81,11 +82,11 @@ namespace MobileServiceMobileApp {
             }
         }
 
-        void Home_Clicked(object sender, System.EventArgs e) {
+        void Home_Clicked(object sender, EventArgs e) {
             App.Current.MainPage = new MainPage(user);
         }
 
-        void Register_Clicked(object sender, System.EventArgs e) {
+        void Register_Clicked(object sender, EventArgs e) {
             App.Current.MainPage = new RegisterPage();
         }
     }

@@ -8,7 +8,7 @@ namespace MovieService.Models
         [JsonIgnore]
         public string commentGuid { get; set; }
         public string userGuid { get; set; }
-        [JsonIgnore]
+        public string userName { get; set; }
         public string movieGuid { get; set; }
         public string commentContent { get; set; }
         public DateTime creationDate { get; set; }
