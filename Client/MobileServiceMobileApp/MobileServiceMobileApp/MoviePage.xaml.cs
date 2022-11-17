@@ -45,8 +45,6 @@ namespace MobileServiceMobileApp {
             MovieGrid.BindingContext = Movie;
             CommentsListView.ItemsSource = Comments;
             TitleLabel.BindingContext = Movie;
-
-
         }
 
         void NewComment_Clicked(object sender, EventArgs e) {
@@ -81,7 +79,7 @@ namespace MobileServiceMobileApp {
         }
 
         void Admin_Clicked(object sender, EventArgs e) {
-            App.Current.MainPage = new AdminPage();
+            App.Current.MainPage = new AdminPage(user);
         }
 
         [HttpPost]

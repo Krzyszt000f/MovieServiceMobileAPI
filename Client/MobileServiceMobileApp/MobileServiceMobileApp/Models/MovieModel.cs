@@ -13,11 +13,7 @@ namespace MovieService.Models
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public string releaseDate { get; set; }
         public string director { get; set; }
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public string actors { get; set; }
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        public string rating { get; set; }
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public string description { get; set; }
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public virtual ICollection<UsersCommentsModel> UsersComments { get; set; }

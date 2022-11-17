@@ -58,7 +58,7 @@ namespace MobileServiceMobileApp {
         }
 
         void Admin_Clicked(object sender, EventArgs e) {
-            App.Current.MainPage = new AdminPage();
+            App.Current.MainPage = new AdminPage(user);
         }
 
         void OnTapMovie(object sender, EventArgs e) {
@@ -81,20 +81,6 @@ namespace MobileServiceMobileApp {
                 var result = response.Result.Content.ReadAsStringAsync().Result;
 
                 List<MovieModel> movies = JsonConvert.DeserializeObject<List<MovieModel>>(result);
-
-
-                // string textResult = response.Content.ReadAsStringAsync();
-                /*
-                List<MovieModel> movies = JsonConvert.DeserializeObject<List<MovieModel>>(textResult);
-
-                if (!guid.Equals("") && movies != null && movies.Count > 0) {
-                    return new OkObjectResult(movies[0]);
-                } else {
-                    return new OkObjectResult(movies);
-                }
-                */
-
-                // List<MovieModel> movies = new List<MovieModel>();
                 return movies;
             }
         }

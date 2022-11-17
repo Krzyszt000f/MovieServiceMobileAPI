@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MobileServiceMobileApp.EditMoviePanel">
+    
+    <StackLayout>
+        <Button x:Name="CancelButton" Clicked="Cancel_Clicked" Text="Back" HorizontalOptions="End" />
+        <Label Text="Edit a new movie" HorizontalTextAlignment="Center" FontSize="Title" Padding="30,30,30,10" />
+
+        <StackLayout x:Name="MovieStackLayout" Orientation="Vertical" Spacing="10" Padding="15">
+            <Entry x:Name="TitleEntry" Placeholder="Title" Text="{Binding title}"
+                           HeightRequest="40" />
+            <DatePicker x:Name="ReleaseDatePicker" Date="{Binding releaseDate}" Format="yyyy.MM.dd"/>
+            <Entry x:Name="DirectorEntry" Placeholder="Director" Text="{Binding director}"
+                           HeightRequest="40" />
+            <Entry x:Name="ActorsEntry" Placeholder="Actors" Text="{Binding actors}"
+                           HeightRequest="40" />
+            <Editor x:Name="DescriptionEditor" Placeholder="Description" Text="{Binding description}"/>
+            <Button x:Name="EditButton" Clicked="Edit_Clicked" Text="Save" TextColor="White"  
+                    FontAttributes="Bold" FontSize="Large" HorizontalOptions="FillAndExpand"  
+                    BackgroundColor="#088da5" />
+            <Label x:Name="ErrorLabel" TextColor="Red" Text ="" HorizontalTextAlignment="Center"/>
+        </StackLayout>
+    </StackLayout>
+</ContentPage>

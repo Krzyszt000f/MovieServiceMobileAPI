@@ -28,12 +28,8 @@ namespace MobileServiceMobileApp {
                 SetError("Inproper email address format");
             } else {
                 UserDataTransferObject userDataTransfer = new UserDataTransferObject();
-                //CreatePasswordHash(Password.Text, out byte[] passwordHash, out byte[] passwordSalt);
-
                 userDataTransfer.email = Email.Text;
                 userDataTransfer.password = Password.Text;
-                //user.passwordHash = passwordHash;
-                //user.passwordSalt = passwordSalt;
 
                 var result = Login(userDataTransfer);
 

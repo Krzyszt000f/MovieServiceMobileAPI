@@ -1,12 +1,42 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              x:Class="MobileServiceMobileApp.AdminPage">
-    <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <xct:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <StackLayout>
+        <StackLayout Orientation="Horizontal" Padding="10">
+            <Button Text="Home" Clicked="Home_Clicked"/>
+            <Button x:Name="LogoutButton" Text="Log out" Clicked="Logout_Clicked"/>
         </StackLayout>
-    </ContentPage.Content>
+
+        <Button x:Name="NewMovieButton" Text="Add a new movie" Clicked="NewMovieButton_Clicked" TextColor="White"  
+                    FontAttributes="Bold" FontSize="Large" HorizontalOptions="FillAndExpand"  
+                    BackgroundColor="#088da5" />
+
+        <ListView x:Name="MoviesListView" ItemsSource="{Binding Movies}" Margin="15">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Text ="{Binding title}" Grid.Column="0" HorizontalOptions="Fill" VerticalOptions="Center"  HorizontalTextAlignment="Center" Margin="1" />
+                            <Button x:Name="EditMovieButton" Grid.Column="1" Text="Edit" Clicked="EditMovieButton_Clicked" />
+                            <Button x:Name="DeleteMovieButton" Grid.Column="2" Text="Delete" Clicked="DeleteMovieButton_Clicked" />
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
 </ContentPage>

@@ -13,9 +13,9 @@
                 HorizontalOptions="CenterAndExpand" />
 
             <StackLayout Orientation="Vertical" Spacing="10" Padding="15">
-                <Entry x:Name="Email" Text="{Binding Email}" Placeholder="Email"   
+                <Entry x:Name="Email" Placeholder="Email"   
                            HeightRequest="40" />
-                <Entry x:Name="Password" Text="{Binding Password}" Placeholder="Password"   
+                <Entry x:Name="Password" Placeholder="Password"   
                            HeightRequest="40"   
                            IsPassword="True"  />
                 <Button Clicked="Login_Clicked" Text="Login" TextColor="White"  
