@@ -67,13 +67,14 @@ namespace MovieService
         [HttpPost]
         public async Task<ActionResult<UserModel>> Register([FromBody] RegisterDataTransferObject request)
         {
+            
             NpgsqlParameter parametrized_userName = new NpgsqlParameter("userName", DbType.String);
             NpgsqlParameter parametrized_email = new NpgsqlParameter("email", DbType.String);
             parametrized_userName.Value = request.userName;
             parametrized_email.Value = request.email;
 
             UserModel user = new UserModel();
-            CreatePasswordHash(request.password, out byte[] passwordHash, out byte[] passwordSalt);
+            CreatePasswordHash(request.userPassword, out byte[] passwordHash, out byte[] passwordSalt);
 
             user.userName = request.userName;
             user.passwordHash = passwordHash;
